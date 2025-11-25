@@ -1,0 +1,275 @@
+/* ----------------------------------- */
+/* 字體與整體排版優化 */
+/* ----------------------------------- */
+body {
+    /* 設定標楷體 (BiauKai) 或微軟正黑體/蘋方 (更現代且常見的中文無襯線字體) */
+    font-family: "標楷體", "BiauKai", "DengXian", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+    background-color: #eef1f5;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px 20px;
+    margin: 0;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    max-width: 700px;
+}
+
+h1 {
+    color: #0d47a1;
+    text-align: center;
+    margin-bottom: 5px;
+    border-bottom: 3px solid #e3f2fd;
+    padding-bottom: 15px;
+}
+
+.app-description {
+    text-align: center;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #1565c0;
+    padding-bottom: 8px;
+    margin-top: 25px;
+    font-size: 1.3em;
+}
+
+h3 {
+    color: #00838f;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+/* ----------------------------------- */
+/* Tab 樣式 */
+/* ----------------------------------- */
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    /* 確保 Tab 按鈕使用標楷體和粗體 */
+    font-family: "標楷體", "BiauKai", "DengXian", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+    font-weight: bold; 
+    
+    background-color: #f1f1f1;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 20px;
+    transition: 0.3s;
+    font-size: 1.1em;
+    flex-grow: 1;
+    margin: 0 2px;
+    border-radius: 8px 8px 0 0;
+}
+
+.tab-button:hover {
+    background-color: #ddd;
+}
+
+.tab-button.active {
+    background-color: #0d47a1;
+    color: white;
+    border-bottom: none;
+}
+
+.tab-content {
+    display: none; /* 預設隱藏所有內容 */
+    padding: 6px 0;
+}
+
+.tab-content.active {
+    display: block; /* 顯示當前選中的內容 */
+}
+
+/* ----------------------------------- */
+/* 輸入欄位樣式 */
+/* ----------------------------------- */
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+input[type="number"], input[type="text"], select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    /* 統一設定 margin-bottom，確保欄位底部間距一致 */
+    margin-bottom: 10px; 
+    border: 1px solid #c5d0e0;
+    border-radius: 6px;
+    box-sizing: border-box; /* 確保 padding 和 border 包含在 width 內 */
+    font-size: 16px;
+}
+
+/* 【新增】：頭期款按鈕區塊樣式 */
+.downpayment-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.dp-button {
+    /* 重置基礎按鈕樣式，使其更像選項卡 */
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    color: #555;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    flex-grow: 1; /* 使按鈕平均分配空間 */
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.dp-button:hover {
+    background-color: #e0e0e0;
+}
+
+.dp-button.active {
+    background-color: #0d47a1;
+    color: white;
+    border-color: #0d47a1;
+    font-weight: bold;
+}
+
+/* 【新增】：金額顯示標籤樣式 */
+.display-amount {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #c5d0e0;
+    border-radius: 6px;
+    background-color: #f8f8f8;
+    color: #0d47a1;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* ----------------------------------- */
+/* 按鈕樣式 */
+/* ----------------------------------- */
+.tab-content button {
+    display: block; 
+    margin: 30px auto 20px auto; /* 居中對齊，增加上下間距 */
+    padding: 14px 40px; 
+    border: none;
+    border-radius: 8px; /* 增加圓角 */
+    cursor: pointer;
+    width: 90%; /* 寬度稍微縮小，但仍保持顯眼 */
+    max-width: 400px;
+    font-size: 1.15em;
+    font-weight: bold;
+    color: white; 
+    letter-spacing: 1px;
+    
+    /* 漸層背景 */
+    background: linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%); 
+    
+    /* 盒子陰影 */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(30, 136, 229, 0.5);
+    
+    /* 過渡效果 */
+    transition: all 0.3s ease;
+}
+
+/* 滑鼠懸停效果 (Hover) */
+.tab-content button:hover {
+    background: linear-gradient(135deg, #42a5f5 0%, #1565c0 100%);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); 
+    transform: translateY(-2px);
+}
+
+/* 點擊效果 (Active) */
+.tab-content button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: #0d47a1;
+}
+
+/* ----------------------------------- */
+/* 結果區樣式 */
+/* ----------------------------------- */
+.result-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px dashed #cccccc;
+}
+
+.fee-group {
+    border: 1px solid #b3e5fc;
+    border-left: 5px solid #03a9f4; 
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-top: 15px;
+    background-color: #f5f8ff;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 10px;
+    line-height: 1.8;
+}
+
+ul li {
+    margin-bottom: 5px;
+}
+
+/* 賣方總費用估算 / 買方總費用估算：金額為黑色 */
+.total-fee {
+    text-align: right;
+    font-size: 1.2em;
+    color: #000; /* 金額顯示為黑色 */
+    font-weight: bold;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+
+/* 可獲利金額 (預估)：金額及標籤文字皆為亮紅色 */
+.total-profit {
+    text-align: right; 
+    font-size: 1.2em;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+    color: #FF0000; /* 【修正點】：金額顯示為亮紅色 */
+}
+
+/* 標籤文字 (Strong) 的對齊和顏色處理 */
+.total-fee strong {
+    float: left; /* 對齊左側 */
+    font-weight: 600;
+    color: #333; /* 總費用標籤為標準深色 */
+}
+
+.total-profit strong {
+    float: left; /* 對齊左側 */
+    font-weight: 600;
+    color: #FF0000; /* 【修正點】：可獲利金額標籤為亮紅色 */
+}
+
+.tax-note {
+    text-align: center;
+    color: #777;
+    margin-top: 10px;
+}

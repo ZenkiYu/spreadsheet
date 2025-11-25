@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>房仲交易成本與稅務計算 (Tab 分頁版)</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📑 不動產交易成本與稅務計算</h1>
+        <p class="app-description">請輸入交易相關資訊，系統將估算買賣雙方的支出項目與主要稅費。</p>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'Seller')">賣方成本與稅務</button>
+            <button class="tab-button" onclick="openTab(event, 'Buyer')">買方費用計算</button>
+        </div>
+
+        <div id="Seller" class="tab-content active">
+            <div class="input-section">
+                <h2>賣方輸入資訊</h2>
+                
+                <label for="sellEstimatedPrice">預估成交總價 (萬):</label>
+                <input type="number" id="sellEstimatedPrice" min="0">
+                
+                <label for="acquirePrice">不動產取得價 (萬):</label>
+                <input type="number" id="acquirePrice" min="0">
+                
+                <label for="registerDateYear">謄本登記日期 (年/月/日):</label>
+                <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 5px;">
+                    <input type="text" id="registerDateYear" style="width: 30%; text-align: center; margin-right: 0;">
+                    <span>年</span>
+                    <input type="text" id="registerDateMonth" style="width: 25%; text-align: center; margin-right: 0;">
+                    <span>月</span>
+                    <input type="text" id="registerDateDay" style="width: 25%; text-align: center; margin-right: 0;">
+                    <span>日</span>
+                </div>
+                
+                <label for="manualLandTax">土地漲價總數額 (萬):</label>
+                <input type="number" id="manualLandTax">
+
+                <label for="manualNotaryFeeSeller">代書費 (萬):</label>
+                <input type="number" id="manualNotaryFeeSeller" value="3" min="0">
+
+                <label for="sellDecorationFee">可認列裝潢費用 (萬):</label>
+                <input type="number" id="sellDecorationFee" min="0">
+            </div>
+
+            <button onclick="calculate('sell')">執行賣方成本與稅務估算</button>
+            
+            <div class="result-section">
+                <h2>📊 賣方支出明細</h2>
+                <div class="fee-group seller-fees">
+                    <h3>賣方主要支出項目 (預估)</h3>
+                    <ul id="sellerList">
+                        <li>請輸入資訊並點擊按鈕執行計算。</li>
+                    </ul>
+                </div>
+                <p class="total-fee">
+                    <strong>支出總費用 (預估) :</strong> 
+                    <span id="sellTotalFee">--</span>
+                </p>
+                <p class="total-profit">
+                    <strong>可獲利金額 (預估) :</strong> 
+                    <span id="sellProfit">--</span>
+                </p>
+                <p class="tax-note">
+                    <small>* 土地漲價總數額為初步估算，實際稅額以國稅局核定為準。</small>
+                </p>
+            </div>
+        </div>
+
+        <div id="Buyer" class="tab-content">
+            <div class="input-section">
+                <h2>買方輸入資訊</h2>
+                
+                <label for="buyEstimatedPrice">預估成交總價 (萬):</label>
+                <input type="number" id="buyEstimatedPrice" oninput="updateDownPaymentDisplay()">
+                
+                <label>頭期款成數：</label>
+                <div class="downpayment-buttons">
+                    <button type="button" class="dp-button active" data-rate="0.2" onclick="setDownPaymentRate(0.2, this)">20 %</button>
+                    <button type="button" class="dp-button" data-rate="0.3" onclick="setDownPaymentRate(0.3, this)">30 %</button>
+                </div>
+                
+                <label>預估頭期款金額 (萬):</label>
+                <span id="downPaymentDisplay" class="display-amount">--</span>
+
+                <label for="manualContractTax">契稅 (萬):</label>
+                <input type="number" id="manualContractTax">
+
+                <label for="manualStampTax">印花稅 (萬):</label>
+                <input type="number" id="manualStampTax">
+
+                <label for="manualGovFee">規費 (萬):</label>
+                <input type="number" id="manualGovFee">
+
+                <label for="manualNotaryFee">代書費 (萬):</label>
+                <input type="number" id="manualNotaryFee" value="3" min="0">
+
+            </div>
+
+            <button onclick="calculate('buy')">執行買方費用估算</button>
+            
+            <div class="result-section">
+                <h2>📊 買方支出明細</h2>
+                <div class="fee-group buyer-fees">
+                    <h3>買方主要支出項目 (預估)</h3>
+                    <ul id="buyerList">
+                        <li>請輸入資訊並點擊按鈕執行計算。</li>
+                    </ul>
+                </div>
+                <p class="total-fee">
+                    <strong>買方總費用估算:</strong> 
+                    <span id="buyTotalFee">--</span>
+                </p>
+                <p class="tax-note">
+                    <small>* 費用估算僅供參考。</small>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
