@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>房仲交易成本與稅務計算 (Tab 分頁版)</title>
+    <title>房仲交易成本與稅務計算</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -20,30 +20,45 @@
             <div class="input-section">
                 <h2>賣方輸入資訊</h2>
                 
-                <label for="sellEstimatedPrice">預估成交總價 (萬):</label>
-                <input type="number" id="sellEstimatedPrice" min="0">
-                
-                <label for="acquirePrice">不動產取得價 (萬):</label>
-                <input type="number" id="acquirePrice" min="0">
-                
-                <label for="registerDateYear">謄本登記日期 (年/月/日):</label>
-                <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 5px;">
-                    <input type="text" id="registerDateYear" style="width: 30%; text-align: center; margin-right: 0;">
-                    <span>年</span>
-                    <input type="text" id="registerDateMonth" style="width: 25%; text-align: center; margin-right: 0;">
-                    <span>月</span>
-                    <input type="text" id="registerDateDay" style="width: 25%; text-align: center; margin-right: 0;">
-                    <span>日</span>
+                <div class="input-inline">
+                    <label for="isAgentSale">是否透過仲介取得？ </label>
+                    <input type="checkbox" id="isAgentSale" checked onchange="calculate('sell')">
                 </div>
                 
+                <label for="sellEstimatedPrice">預估成交總價 (萬):</label>
+                <input type="number" id="sellEstimatedPrice" min="0" oninput="calculate('sell')">
+                
+                <label for="acquirePrice">不動產取得價 (萬):</label>
+                <input type="number" id="acquirePrice" min="0" oninput="calculate('sell')">
+                
+                <label for="registerDateYear">謄本登記日期 (年/月/日):</label>
+                <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 15px;">
+                    <input type="number" id="registerDateYear" style="width: 30%; text-align: center; margin-right: 0;" oninput="calculate('sell')">
+                    <span>年</span>
+                    <input type="number" id="registerDateMonth" style="width: 25%; text-align: center; margin-right: 0;" oninput="calculate('sell')" onchange="cycleDateValue('registerDateMonth', 12)" onblur="cycleDateValue('registerDateMonth', 12)">
+                    <span>月</span>
+                    <input type="number" id="registerDateDay" style="width: 25%; text-align: center; margin-right: 0;" oninput="calculate('sell')" onchange="cycleDateValue('registerDateDay', 31)" onblur="cycleDateValue('registerDateDay', 31)">
+                    <span>日</span>
+                </div>
+                                
+                <label for="manualContractTaxSeller">契稅 (萬):</label>
+                <input type="number" id="manualContractTaxSeller" oninput="calculate('sell')">
+                
                 <label for="manualLandTax">土地漲價總數額 (萬):</label>
-                <input type="number" id="manualLandTax">
+                <input type="number" id="manualLandTax" oninput="calculate('sell')">
+                                
+                <label for="sellDecorationFee">可認列裝潢費用 (萬):</label>
+                <input type="number" id="sellDecorationFee" min="0" oninput="calculate('sell')">
 
                 <label for="manualNotaryFeeSeller">代書費 (萬):</label>
-                <input type="number" id="manualNotaryFeeSeller" value="3" min="0">
+                <input type="number" id="manualNotaryFeeSeller" value="3" min="0" oninput="calculate('sell')">
+                
+                <label for="manualCommissionFeeSeller4Percent">仲介服務費 - 售出實付 (萬):</label>
+                <input type="number" id="manualCommissionFeeSeller4Percent" min="0" oninput="calculate('sell')">
 
-                <label for="sellDecorationFee">可認列裝潢費用 (萬):</label>
-                <input type="number" id="sellDecorationFee" min="0">
+                <label for="manualCommissionFeeSeller">仲介服務費 - 取得實付 (萬):</label>
+                <input type="number" id="manualCommissionFeeSeller" min="0" oninput="calculate('sell')">
+
             </div>
 
             <button onclick="calculate('sell')">執行賣方成本與稅務估算</button>
@@ -65,39 +80,42 @@
                     <span id="sellProfit">--</span>
                 </p>
                 <p class="tax-note">
-                    <small>* 土地漲價總數額為初步估算，實際稅額以國稅局核定為準。</small>
+                    <small>* 費用估算僅供參考。</small>
                 </p>
             </div>
         </div>
-
+        
         <div id="Buyer" class="tab-content">
             <div class="input-section">
                 <h2>買方輸入資訊</h2>
                 
                 <label for="buyEstimatedPrice">預估成交總價 (萬):</label>
-                <input type="number" id="buyEstimatedPrice" oninput="updateDownPaymentDisplay()">
+                <input type="number" id="buyEstimatedPrice" oninput="updateDownPaymentDisplay(); calculate('buy');">
                 
-                <label>頭期款成數：</label>
-                <div class="downpayment-buttons">
-                    <button type="button" class="dp-button active" data-rate="0.2" onclick="setDownPaymentRate(0.2, this)">20 %</button>
-                    <button type="button" class="dp-button" data-rate="0.3" onclick="setDownPaymentRate(0.3, this)">30 %</button>
+                <label for="manualDownPaymentRate" style="margin-top: 20px;">頭期款成數 (%):</label>
+                <input type="number" id="manualDownPaymentRate" min="0" max="100" oninput="updateDownPaymentDisplay(); calculate('buy');">
+                
+                <div class="downpayment-buttons rate-buttons">
+                <button type="button" class="dp-button" data-rate="0.2" onclick="setDownPaymentRate(0.2, this); calculate('buy');">20 %</button>
+                <button type="button" class="dp-button" data-rate="0.25" onclick="setDownPaymentRate(0.25, this); calculate('buy');">25 %</button>
+                <button type="button" class="dp-button active" data-rate="0.3" onclick="setDownPaymentRate(0.3, this); calculate('buy');">30 %</button>
                 </div>
                 
-                <label>預估頭期款金額 (萬):</label>
+                <label>預估頭期款金額 (萬):</label> 
                 <span id="downPaymentDisplay" class="display-amount">--</span>
 
                 <label for="manualContractTax">契稅 (萬):</label>
-                <input type="number" id="manualContractTax">
+                <input type="number" id="manualContractTax" oninput="calculate('buy')">
 
                 <label for="manualStampTax">印花稅 (萬):</label>
-                <input type="number" id="manualStampTax">
+                <input type="number" id="manualStampTax" oninput="calculate('buy')">
 
                 <label for="manualGovFee">規費 (萬):</label>
-                <input type="number" id="manualGovFee">
+                <input type="number" id="manualGovFee" oninput="calculate('buy')">
 
                 <label for="manualNotaryFee">代書費 (萬):</label>
-                <input type="number" id="manualNotaryFee" value="3" min="0">
-
+                <input type="number" id="manualNotaryFee" value="3" min="0" oninput="calculate('buy')">
+                
             </div>
 
             <button onclick="calculate('buy')">執行買方費用估算</button>
