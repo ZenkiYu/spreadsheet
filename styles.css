@@ -117,7 +117,34 @@ input[type="number"], input[type="text"], select {
     font-size: 16px;
 }
 
-/* 【新增】：頭期款按鈕區塊樣式 */
+/* 處理內聯輸入（如 Checkbox） */
+.input-inline {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #eee;
+}
+.input-inline label {
+    margin-top: 0;
+    margin-right: 10px;
+    /* 覆寫 display: block; */
+    display: inline; 
+    font-weight: bold;
+    color: #333;
+    flex-grow: 1;
+}
+.input-inline input[type="checkbox"] {
+    width: 20px; /* 覆寫 width: 100%; */
+    height: 20px;
+    margin: 0;
+    /* 讓 checkbox 視覺上更明顯 */
+    border: 1px solid #0d47a1; 
+}
+
+
+/* 頭期款按鈕區塊樣式 */
 .downpayment-buttons {
     display: flex;
     gap: 10px;
@@ -149,7 +176,7 @@ input[type="number"], input[type="text"], select {
     font-weight: bold;
 }
 
-/* 【新增】：金額顯示標籤樣式 */
+/* 金額顯示標籤樣式 */
 .display-amount {
     display: block;
     width: 100%;
@@ -243,6 +270,8 @@ ul li {
     margin-top: 15px;
     padding-top: 10px;
     border-top: 1px solid #ddd;
+    /* 清除浮動 */
+    overflow: hidden; 
 }
 
 /* 可獲利金額 (預估)：金額及標籤文字皆為亮紅色 */
@@ -252,7 +281,9 @@ ul li {
     margin-top: 15px;
     padding-top: 10px;
     border-top: 1px solid #ddd;
-    color: #FF0000; /* 【修正點】：金額顯示為亮紅色 */
+    color: #FF0000; /* 金額顯示為亮紅色 */
+    /* 清除浮動 */
+    overflow: hidden; 
 }
 
 /* 標籤文字 (Strong) 的對齊和顏色處理 */
@@ -265,7 +296,7 @@ ul li {
 .total-profit strong {
     float: left; /* 對齊左側 */
     font-weight: 600;
-    color: #FF0000; /* 【修正點】：可獲利金額標籤為亮紅色 */
+    color: #FF0000; /* 可獲利金額標籤為亮紅色 */
 }
 
 .tax-note {
